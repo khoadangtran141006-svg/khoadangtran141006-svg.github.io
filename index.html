@@ -51,7 +51,7 @@ body {
   width: 80px;
   height: 64px;
   background-size: cover;
-  border-radius: 50%;
+  border-radius: 6px;
   border: 2px solid rgba(255,255,255,0.3);
 }
 .header .search {
@@ -173,11 +173,10 @@ body {
 <body>
   <div class="page">
     <header class="header">
-      <div class="logo" style="background-image: url('logo.jpg');"></div>
-
+      <div class="logo" aria-hidden></div>
       <div class="search">Trang demo • danh mục • quản lý</div>
     </header>
-
+    
     <div class="tabs" role="navigation" aria-label="Thanh tab chính">
       <div class="tab">ADIDAS</div>
       <div class="tab">NIKE</div>
@@ -273,3 +272,4 @@ body {
   </script>
 </body>
 </html>
+
