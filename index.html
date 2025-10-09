@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="vi"> <!-- Khai báo HTML5 và ngôn ngữ chính là tiếng Việt -->
+<head>
+  <meta charset="utf-8" /> <!-- Mã hóa UTF-8 để hiển thị tiếng Việt -->
+  <meta name="viewport" content="width=device-width,initial-scale=1" /> <!-- Responsive cho mobile -->
+  <title>dkhoavlinez</title> <!-- Tiêu đề trang -->
+  <link rel="icon" type="image/jpeg" href="foto/logo.jpg"> <!-- Favicon -->
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap'); /* Import font Poppins */
+
+    /* Reset cơ bản */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box; /* Tính toán kích thước bao gồm padding và border */
+    }
+    body {
+      font-family: 'Poppins', sans-serif; /* Font mặc định */
+      background: #ffffff; /* Màu nền trắng */
+      color: #222; /* Màu chữ */
+    }
+
+    /* Container chính */
+    .page {
+      display: flex;
+      flex-direction: column; /* Bố cục theo chiều dọc */
+      min-height: 100vh; /* Chiều cao tối thiểu bằng chiều cao màn hình */
+    }
+
+    /* Header */
+    .header {
+      background: url("foto/ban2.jpg") no-repeat center/cover; /* Ảnh nền */
+      height: 280px; /* Chiều cao header */
+      display: flex;
+      align-items: flex-end; /* Canh nội dung xuống dưới */
+      padding: 20px;
+      color: white;
+      position: relative; /* Để pseudo-element ::after phủ lên */
+    }
+    .header::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.35); /* Lớp phủ mờ để chữ nổi bật */
+    }
+    .header .logo, .header .search {
+      position: relative;
+      z-index: 2; /* Nằm trên lớp phủ */
+    }
+    .header .logo {
+      width: 80px;
+      height: 64px;
+      background-size: cover;
+      border-radius: 50%; /* Bo tròn logo */
+      border: 2px solid rgba(255,255,255,0.3); /* Viền mờ */
+    }
+    .header .search {
+      margin-left: auto; /* Đẩy sang phải */
+      font-size: 14px;
+      opacity: 0.9; /* Chữ hơi mờ */
+    }
+
+    /* Tabs */
+    .tabs {
+      display: flex;
+      gap: 10px; /* Khoảng cách giữa các tab */
+      padding: 10px 16px;
+      background: #003566; /* Màu nền thanh tab */
+    }
+    .tab {
+      padding: 8px 16px;
+      border-radius: 20px; /* Bo tròn tab */
+      background: #ffffff20; /* Màu nền bán trong suốt */
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .tab:hover {
+      background: #ffc300; /* Đổi màu khi hover */
+      color: #003566;
+    }
+    .tab.active {
+      background: #ffd60a; /* Tab đang chọn */
+      color: #003566;
+    }
+
+    /* Layout chính: sidebar + main + (sidebar right) */
+    .content-wrap {
+      display: flex; /* Bố cục ngang */
+      flex: 1;
+    }
+
+    /* Sidebar trái */
+    .sidebar-left {
+      width: 220px;
+      background: #fff;
+      border-right: 1px solid #eee;
+      padding: 16px;
+    }
+    .group-title {
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: #444;
+    }
+    .list-btn {
+      display: flex;
+      flex-direction: column; /* Xếp nút theo cột */
+      gap: 10px;
+    }
+    .list-btn button {
+      border: none;
+      padding: 10px;
+      border-radius: 6px; /* Bo tròn nút */
+      background: #f1f1f1; /* Nền nút */
+      font-size: 14px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .list-btn button:hover {
+      background: #e6f0ff; /* Đổi màu khi hover */
+    }
+
+    /* Main content */
+    .main {
+      flex: 1; /* Chiếm toàn bộ không gian còn lại */
+      padding: 24px;
+      background: #fafafa;
+      overflow-y: auto; /* Scroll khi nội dung dài */
+    }
+
+    /* Grid hiển thị các card */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); /* Tự động chia cột */
+      gap: 20px;
+    }
+
+    /* Card sản phẩm */
+    .card {
+      background: #fff;
+      border-radius: 10px; /* Bo tròn card */
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08); /* Bóng nhẹ */
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+    }
+    .card:hover {
+      transform: translateY(-4px); /* Nâng lên khi hover */
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+    .card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover; /* Cắt ảnh vừa card */
+    }
+    .card p {
+      padding: 12px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #333;
+      flex: 1;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .sidebar-left { display: none; } /* Ẩn sidebar trái trên mobile */
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo" style="background-image: url('foto/logo.jpg');"></div> <!-- Logo bo tròn -->
+      <div class="search">Trang demo • danh mục • quản lý</div> <!-- Chữ header -->
+    </header>
+
+    <!-- Tabs chính -->
+    <div class="tabs" role="navigation" aria-label="Thanh tab chính">
+      <div class="tab">ADIDAS</div>
+      <div class="tab">NIKE</div>
+      <div class="tab">MIZUNO</div>
+    </div>
+
+    <!-- Nội dung chính -->
+    <div class="content-wrap">
+      <!-- Sidebar trái -->
+      <aside class="sidebar-left" aria-label="Danh mục">
+        <div class="group-title">Danh Mục</div>
+        <div class="list-btn">
+          <button class="tag-blue">GIÀY BÓNG ĐÁ</button>
+          <button class="tag-blue">GIÀY SNEAKER</button>
+          <button class="tag-blue">GIÀY TÂY</button>
+          <button class="tag-special">GIÀY SANDAL</button>
+          <button class="tag-yellow">GIÀY TÂY</button>
+        </div>
+      </aside>
+
+      <!-- Main content -->
+      <main class="main" role="main">
+        <div class="grid">
+          <!-- Card sản phẩm -->
+
+          <div class="card">
+            <img src="foto/1.jpg" alt="Ảnh 1">
+            <p>Nike Tiempo Legend 10 Elite FG United - Purple Agate/Barely Volt HF1592-500</p>
+          </div>
+
+          <div class="card">
+            <img src="foto/2.jpg" alt="Ảnh 2">
+            <p>Nike Air Zoom Mercurial Vapor 16 Elite AG-PRO Scary Good - Magic Flamingo/Black/Total Crimson FQ8693-600</p>
+          </div>
+
+          <div class="card"> 
+            <img src="foto/3.jpg" alt="Ảnh 3"> 
+            <p>Nike Tiempo Legend 10 Academy MG Scary Good - Blue Eclipse/Black</p> 
+          </div>
+
+          <div class="card"> 
+            <img src="foto/4.jpg" alt="Ảnh 4"> 
+            <p>Nike Air Zoom Mercurial Vapor 16 Elite FG Fear Nothing - White/University Red/Dark Obsidian HJ7325-600</p> 
+          </div>
+
+          <div class="card">
+            <img src="foto/5.jpg" alt="Ảnh 5">
+            <p>Nike React Phantom 6 Pro Low TF Scary Good - Royal Tint/Bright Crimson HJ4123-400</p>
+          </div> 
+
+          <div class="card">
+            <img src="foto/6.jpg" alt="Ảnh 6"> 
+            <p>Nike Air Zoom Mercurial Vapor 16 Elite FG Fear Nothing - White/University Red/Dark Obsidian HJ7325-600</p> 
+          </div>
+
+          <div class="card"> 
+            <img src="foto/7.jpg" alt="Ảnh 7">
+            <p>Nike Phantom GX II Elite AG-PRO Prism - Crimson Tint/Black/Pink Blast FJ2554-800</p> 
+          </div> 
+
+          <div class="card"> 
+            <img src="foto/8.jpg" alt="Ảnh 8"> 
+            <p>Nike Tiempo Legend 10 Elite FG Prism - Copa// White DV4328-401</p> 
+          </div>
+
+          <div class="card">
+            <img src="foto/9.jpg" alt="Ảnh 9">
+            <p>Nike Air Zoom Mercurial Vapor 16 Academy MG Prism - Ocean Cube/Pink Blast FQ8374-301</p> 
+          </div> 
+
+          <div class="card"> 
+            <img src="foto/10.jpg" alt="Ảnh 10">
+            <p>adidas F50 Elite FG Road to Glory - Footwear White/Core Black/Gold Metallic JH7617</p> 
+          </div> 
+
+          <div class="card"> 
+            <img src="foto/11.jpg" alt="Ảnh 11"> 
+            <p>Nike Air Zoom Mercurial Vapor 16 Academy MG Mbappé Personal Edition - Laser Orange/Armory Navy FQ8377-800</p> 
+          </div>
+
+          <div class="card">
+            <img src="foto/12.jpg" alt="Ảnh 12">
+            <p>Nike Air Zoom Mercurial Superfly 9 Academy TF Mad Brilliance - Pink Foam/Black DJ5629-601</p>
+          </div>
+      </main>
+
+      <!-- Sidebar phải (hiện chưa dùng) -->
+      <aside class="sidebar-right" aria-hidden></aside>
+    </div>
+  </div>
+
+  <script>
+    // Khi click tab: highlight tab
+    document.querySelectorAll('.tabs .tab').forEach(t=>{
+      t.addEventListener('click', ()=>{
+        document.querySelectorAll('.tabs .tab').forEach(x=>x.style.opacity=1); // Reset opacity
+        t.style.opacity = 1; // Tab click vẫn sáng
+      });
+    });
+
+    // Click sidebar: thêm viền highlight
+    document.querySelectorAll('.list-btn button').forEach(b=>{
+      b.addEventListener('click', ()=> {
+        document.querySelectorAll('.list-btn button').forEach(x=>x.style.boxShadow='none'); // Xóa highlight cũ
+        b.style.boxShadow = '0 0 0 3px rgba(0,150,200,0.12)'; // Thêm highlight mới
+      });
+    });
+    
+  </script>
+</body>
+</html>
